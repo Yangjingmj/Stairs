@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery/jquery-1.11.3/jquery.min.js"></script>
+	<style type="text/css">
+	   *{margin: 0px;padding: 0px;}
+		.nav{
+			height: 312px;
+            width: 80px;    
+            position: fixed;
+            border: 1px #666 solid;
+            border-radius:2px; 
+            left: 50px;
+            top: 100px;
+            display: none;
+		    }
+		.nav ul li{
+			height: 50px;
+			width: 80px;
+			border-bottom: 1px red solid;
+			list-style: none;
+			margin: 0 auto;
+			line-height: 50px;
+			text-align: center;
+		}
+		.on {background-color: #f10180;color: #fff;}
+		.header{
+			height: 300px;
+			width:auto;
+			background-color: red;
+		}
+		.main ul li{
+			height: 500px;
+			width: 1000px;
+			background: yellow;
+			margin: 0 auto;
+			list-style: none;
+			border:1px black solid; 
+		}
+	</style>
+	<script type="text/javascript">
+	    
+	    $(function(){
+	    	var key = 0;
+	    	$(window).scroll(function(event) {
+	    if(key == 0)
+		{
+			var _top = $(window).scrollTop();//获取当前滚动条的高度；
+			if(_top > 250)
+			{
+				$(".nav").show();
+			}
+			else
+			{
+				$(".nav").hide();
+			}
+			$(".main ul li").each(function() {
+				var _index = $(this).index();
+				var _height = $(this).offset().top+200;
+				if(_height > _top)
+				{
+					$(".nav ul li").eq(_index).addClass('on').siblings().removeClass('on');
+                    return false;
+				}
+			});
+			}
+		});
+            
+	      $('.nav ul li').click(function() {
+	      	    key = 1;
+				var _index = $(this).index();
+				$(".nav ul li").eq(_index).addClass('on').siblings().removeClass('on');
+				var _height = $(".main ul li").eq(_index).offset().top;
+				$("html,body").animate({scrollTop:_height},500,function(){
+					key = 0;
+				})
+			})
+	    });
+	    
+			//alert('ss');
+	</script>
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li class="on">男装</li>
+			<li>皮鞋</li>
+			<li>衣服</li>
+			<li>裤子</li>
+			<li>钱包</li>
+			<li>帽子</li>
+		</ul>
+	</div>
+	<div class="header"></div>
+	<div class="main">
+		<ul>
+			<li>男装</li>
+			<li>皮鞋</li>
+			<li>衣服</li>
+			<li>裤子</li>
+			<li>钱包</li>
+			<li>帽子</li>
+		</ul>
+	</div>
+</body>
+</html>
